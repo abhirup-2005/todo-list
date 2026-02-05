@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    border: red solid 1px;
 }
 :root {
     --bg-color : #ffffff;
@@ -9,4 +10,135 @@
 
 body {
     background-color: var(--bg-color);
+    display: grid;
+    grid-template-columns: 1.5fr 4fr 1fr;
+    grid-template-rows: 60px 1fr;
+    height: 100vh;
+}
+
+#left-sidebar {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 1fr 1fr;
+    padding: 20px 20px 0 20px;
+    gap: 20px;
+}
+
+#left-sidebar > h1 {
+    font-size: 2rem;
+}
+
+header {
+    grid-column: 2/-1;
+    grid-row: 1/2;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+}
+#main {
+    grid-column: 2/3;
+    grid-row: 2/-1;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 1fr;
+    padding: 20px 10px 0 20px;
+    gap: 10px;
+}
+#right-sidebar {
+    grid-column: 3/-1;
+    grid-row: 2/-1;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 20px 20px 20px 10px;
+    gap: 20px;
+}
+#projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+}
+
+#projects > .header{
+    display: flex;
+    justify-content: space-between;
+}
+
+#projects h2 {
+    font-size: 1.8rem;
+}
+
+.search {
+    width: max(50%, 400px);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 15px;
+    padding: 0 10px;
+}
+
+.search input{
+    flex: 1;
+    height: 30px;
+}
+
+#main > .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main .title {
+    font-size: 1.8rem;
+}
+
+header > .right-section {
+    display: flex;
+    gap: 5vw;
+    align-items: center;
+}
+
+#views > ol {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 10px;
+    list-style: none;
+}
+
+#views button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+#add-todo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+#add-project {
+    width: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
 }

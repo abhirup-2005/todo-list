@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-<body>
 
+<body>
+    <section id="left-sidebar">
+        <h1>Todo List</h1>
+        <div id="views">
+            <ol>
+                <li id="inbox"><button><i class="fa-solid fa-inbox"></i>Inbox</button></li>
+                <li id="Today-todo"><button><i class="fa-solid fa-calendar-week"></i>Today</button></li>
+                <li id="upcoming-todo"><button><i class="fa-solid fa-calendar-week"></i>This Week</button></li>
+                <li id="completed-todo"><button><i class="fa-regular fa-calendar-check"></i>Completed</button></li>
+                <li id="trash"><button><i class="fa-solid fa-trash"></i>Trash</button></li>
+            </ol>
+        </div>
+        <div id="projects">
+            <div class="header">
+                <h2>Projects</h2>
+                <button id="add-project"><i class="fa-solid fa-circle-plus"></i></button>
+            </div>
+            <ol>
+                Here comes project lists
+            </ol>
+        </div>
+    </section>
+    <header>
+        <form class="search">
+            <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
+            <input type="text" id="searchbar">
+            <button type="reset"><i class="fa-solid fa-circle-xmark"></i></button>
+        </form>
+        <div class="right-section">
+            <button class="notification"><i class="fa-solid fa-bell"></i></button>
+            <button class="trash"><i class="fa-solid fa-trash"></i></button>
+            <button class="theme-toggle"><i class="fa-solid fa-sun"></i></button>
+        </div>
+    </header>
+    <section id="main">
+        <div class="header">
+            <h2 class="title">Title</h2>
+            <button id="add-todo"><i class="fa-solid fa-circle-plus"></i>Todo</button>
+        </div>
+        <div class="container">
+            todo lists appear here
+        </div>
+    </section>
+    <section id="right-sidebar">
+        <section id="analytics">
+            analytics come here
+        </section>
+        <section id="calander">
+            calender appear here
+        </section>
+    </section>
 </body>
+
 </html>
