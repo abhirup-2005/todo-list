@@ -34,7 +34,7 @@ export function loadFromLocalStorage() {
         todo.completed = todoData.completed;
         todo.deleted = todoData.deleted;
         todo.createdAt = new Date(todoData.createdAt);
-        todoList.unshift(todo);
+        todoList.push(todo);
     })
 
     parsedProjectData.forEach(projectData => {
@@ -43,6 +43,6 @@ export function loadFromLocalStorage() {
         project.archived = projectData.archived;
         project.createdAt = new Date(projectData.createdAt);
 
-        projectList.unshift(project);
+        projectList.push(project);
     });
 }

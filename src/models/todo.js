@@ -2,7 +2,7 @@ export function createTodo({
     projectId,
     title,
     dueDate,
-    priority = "medium",
+    priority = "low",
     description = "",
     note = "",
     checklist = [],

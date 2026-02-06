@@ -3,12 +3,13 @@
 import { createTodo } from "../models/todo.js";
 import { projectList, todoList } from "../state/state.js";
 import { compareAsc, isAfter, isBefore, isToday, startOfToday } from "date-fns";
+import { getArchivedProjects } from "./projectLogic.js";
 
 export function addToTodoList({
     projectId,
     title,
     dueDate,
-    priority = "medium",
+    priority = "low",
     description = "",
     note = "",
     checklist = [],
@@ -51,16 +52,19 @@ export function restoreTodo(todoId) {
 
 export function toggleCompletion(todoId) {
     const todo = todoList.find(item => item.id === todoId);
-    if (!todo) return;
-    if(todo.deleted === false) {
-        todo.completed = !todo.completed;
-    }
+    if (!todo || todo.deleted) return;
+    todo.completed = !todo.completed;
+
+    // sync checklist
+    todo.checklist.forEach(item => {
+        item.completed = todo.completed;
+    });
 }
 
 export function editTodo(todoId, updates) {
     const todo = todoList.find(item => item.id === todoId);
     if (!todo) return;
-    if(todo.deleted === true) return;
+    if (todo.deleted === true) return;
 
     if (updates.title !== undefined) {
         todo.title = updates.title;
@@ -91,12 +95,26 @@ export function getDeletedTodos() {
     return todoList.filter(todo => todo.deleted);
 }
 
+export function getNotArchivedTodos() {
+    return getDeletedTodos().filter(todo => {
+        const projectId = todo.projectId;
+        const archiveProject = getArchivedProjects().find(project => project.id === projectId);
+        if (!archiveProject) {
+            return todo;
+        }
+    });
+}
+
 export function getActiveTodos() {
     return todoList.filter(todo => !todo.deleted);
 }
 
 export function getTodosByProject(projectId) {
     return todoList.filter(todo => todo.projectId === projectId && !todo.deleted);
+}
+
+export function getDeletedTodosByProject(projectId) {
+    return todoList.filter(todo => todo.projectId === projectId && todo.deleted);
 }
 
 export function getCompletedTodos() {
@@ -145,4 +163,27 @@ export function getUpcomingTodos() {
     return getIncompleteTodos().filter(
         todo => classifyTodoByDate(todo) === "upcoming"
     );
+}
+
+export function getTodoById(todoId) {
+    return todoList.find(todo => todo.id === todoId);
+}
+
+function updateTodoCompletionFromChecklist(todo) {
+    if (!todo.checklist.length) return;
+
+    const allCompleted = todo.checklist.every(item => item.completed);
+    todo.completed = allCompleted;
+}
+
+export function toggleChecklistItem(todoId, index) {
+    const todo = todoList.find(t => t.id === todoId);
+    if (!todo || todo.deleted) return;
+
+    const item = todo.checklist[index];
+    if (!item) return;
+
+    item.completed = !item.completed;
+
+    updateTodoCompletionFromChecklist(todo);
 }

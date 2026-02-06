@@ -10,14 +10,17 @@
 
 <body>
     <section id="left-sidebar">
-        <h1>Todo List</h1>
+        <h1><i class="fa-solid fa-list-check"></i> Todo List</h1>
         <div id="views">
             <ol>
-                <li id="inbox"><button><i class="fa-solid fa-inbox"></i>Inbox</button></li>
-                <li id="Today-todo"><button><i class="fa-solid fa-calendar-week"></i>Today</button></li>
-                <li id="upcoming-todo"><button><i class="fa-solid fa-calendar-week"></i>This Week</button></li>
-                <li id="completed-todo"><button><i class="fa-regular fa-calendar-check"></i>Completed</button></li>
-                <li id="trash"><button><i class="fa-solid fa-trash"></i>Trash</button></li>
+                <li><button class="view-buttons" data-view="inbox"><i class="fa-solid fa-inbox"></i>Inbox</button></li>
+                <li><button class="view-buttons" data-view="today"><i
+                            class="fa-solid fa-calendar-day"></i>Today</button></li>
+                <li><button class="view-buttons" data-view="upcoming"><i class="fa-solid fa-calendar-week"></i>This
+                        Week</button></li>
+                <li><button class="view-buttons" data-view="completed"><i
+                            class="fa-regular fa-calendar-check"></i>Completed</button></li>
+                <li><button class="view-buttons" data-view="trash"><i class="fa-solid fa-trash"></i>Trash</button></li>
             </ol>
         </div>
         <div id="projects">
@@ -25,16 +28,16 @@
                 <h2>Projects</h2>
                 <button id="add-project"><i class="fa-solid fa-circle-plus"></i></button>
             </div>
-            <ol>
+            <ul id="project-container">
                 Here comes project lists
-            </ol>
+            </ul>
         </div>
     </section>
     <header>
         <form class="search">
             <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
-            <input type="text" id="searchbar">
-            <button type="reset"><i class="fa-solid fa-circle-xmark"></i></button>
+            <input type="search" id="searchbar">
+            <button type="submit" style="display: none;"></button>
         </form>
         <div class="right-section">
             <button class="notification"><i class="fa-solid fa-bell"></i></button>
@@ -44,13 +47,25 @@
     </header>
     <section id="main">
         <div class="header">
-            <h2 class="title">Title</h2>
+            <h2 class="title" id="todo-header">Title</h2>
             <button id="add-todo"><i class="fa-solid fa-circle-plus"></i>Todo</button>
         </div>
         <div class="container">
-            todo lists appear here
+            <ul id="todoList">
+                todo lists appear here
+            </ul>
         </div>
+        <section id="trash-view" hidden>
+            <div class="container">
+                <h3>Deleted Todos</h3>
+                <ul id="trash-todos"></ul>
+
+                <h3>Archived Projects</h3>
+                <ul id="trash-projects"></ul>
+            </div>
+        </section>
     </section>
+
     <section id="right-sidebar">
         <section id="analytics">
             analytics come here
@@ -59,6 +74,59 @@
             calender appear here
         </section>
     </section>
+
+    <dialog id="add-todo-modal">
+        <form id="add-todo-form" method="dialog">
+            <h2>Add Todo</h2>
+
+            <label>
+                Task Name
+                <input type="text" name="title" required>
+            </label>
+
+            <label>
+                Due Date
+                <input type="date" name="dueDate">
+            </label>
+
+            <label>
+                Priority
+                <select name="priority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </label>
+
+            <label>
+                Description
+                <input type="text" name="description">
+            </label>
+
+            <label>
+                Notes
+                <input type="text" name="note">
+            </label>
+
+            <!-- CHECKLIST SECTION -->
+            <section class="checklist-section">
+                <p>Checklist</p>
+
+                <ul id="checklist-items"></ul>
+
+                <div class="checklist-input">
+                    <input type="text" id="checklist-input" placeholder="Add checklist item">
+                    <button type="button" id="add-checklist-item">Add</button>
+                </div>
+            </section>
+
+            <div class="modal-actions">
+                <button type="submit">Add Todo</button>
+                <button type="button" data-close>Cancel</button>
+            </div>
+        </form>
+    </dialog>
+
 </body>
 
 </html>

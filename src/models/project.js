@@ -3,6 +3,7 @@ export function createProject(title) {
         id: crypto.randomUUID(),
         title,
         archived: false,
-        createdAt: new Date()
+        createdAt: new Date(),
+        isDefault: false,
     };
 }
