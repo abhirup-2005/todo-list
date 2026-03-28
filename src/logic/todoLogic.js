@@ -9,7 +9,7 @@ export function addToTodoList({
     projectId,
     title,
     dueDate,
-    priority = "low",
+    priority = "Low",
     description = "",
     note = "",
     checklist = [],

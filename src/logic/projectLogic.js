@@ -82,3 +82,15 @@ export function renameProject(projectId, newTitle) {
 export function getArchivedProjects() {
     return projectList.filter(project => project.archived);
 }
+
+export function ifTitleExist(title) {
+  let count = 0;
+  let newTitle = title;
+
+  while (projectList.some(p => p.title === newTitle)) {
+    count++;
+    newTitle = `${title}(${count})`;
+  }
+
+  return newTitle;
+}
