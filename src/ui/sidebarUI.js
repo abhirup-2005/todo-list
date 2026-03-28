@@ -1,6 +1,6 @@
 // sidebarUI.js
 import { setView, refreshUI } from "./appUI.js";
-import { addToProjectList, archiveProject, renameProject } from "../logic/projectLogic.js";
+import { addToProjectList, archiveProject, ifTitleExist, renameProject } from "../logic/projectLogic.js";
 import { saveToLocalStorage } from "../storage/storage.js";
 
 const viewBtns = document.querySelectorAll(".view-buttons");
@@ -8,6 +8,7 @@ const viewBtns = document.querySelectorAll(".view-buttons");
 viewBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     setView({
+      title: btn.textContent,
       type: btn.dataset.view,
       projectId: null
     });
@@ -45,11 +46,15 @@ export function renderProjects(projects, currentView) {
     // controls (non-default only)
     if (project.id !== "default") {
       const editBtn = document.createElement("button");
-      editBtn.textContent = "Edit";
+      const editIcon = document.createElement("i");
+      editIcon.classList.add("fa-solid", "fa-pen-to-square");
+      editBtn.appendChild(editIcon);
       editBtn.classList.add("edit-project");
 
       const archiveBtn = document.createElement("button");
-      archiveBtn.textContent = "Archive";
+      const archiveIcon = document.createElement("i");
+      archiveIcon.classList.add("fa-solid", "fa-box-archive");
+      archiveBtn.appendChild(archiveIcon);
       archiveBtn.classList.add("archive-project");
 
       li.append(editBtn, archiveBtn);
@@ -67,6 +72,7 @@ projectContainer.addEventListener("click", (e) => {
   // navigate to project
   if (projectBtn) {
     setView({
+      title: projectBtn.textContent,
       type: "project",
       projectId: projectBtn.dataset.id
     });
@@ -93,11 +99,18 @@ projectContainer.addEventListener("click", (e) => {
 
 
 const addProjectBtn = document.querySelector("#add-project");
+const projectAddForm = document.querySelector("#project-add-form");
 
 addProjectBtn.addEventListener("click", () => {
-  // prevent multiple open forms
-  if (projectContainer.querySelector(".project-inline-form")) return;
+  const addIcon = addProjectBtn.querySelector("i");
+  addIcon.classList.toggle("rotate-225");
 
+  // prevent multiple open forms
+  if (projectAddForm.querySelector(".project-inline-form")) return;
+
+  addProjectBtn.classList.add("cancel-add-project");
+
+  const cancelBtn = document.querySelector(".cancel-add-project");
   const li = document.createElement("li");
   li.classList.add("project-inline-form");
 
@@ -108,30 +121,30 @@ addProjectBtn.addEventListener("click", () => {
   input.placeholder = "Project name";
   input.required = true;
 
-  const cancelBtn = document.createElement("button");
-  cancelBtn.type = "button";
-  cancelBtn.textContent = "x";
+  const submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.textContent = "add";
 
-  form.append(input, cancelBtn);
+  form.append(input, submitBtn);
   li.appendChild(form);
-  projectContainer.prepend(li);
+  projectAddForm.appendChild(li);
 
   input.focus();
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    const title = input.value.trim();
+    addIcon.classList.toggle("rotate-225");
+    let title = input.value.trim();
     if (!title) return;
-
+    title = ifTitleExist(title);
     addToProjectList(title);
     saveToLocalStorage();
     li.remove();
     refreshUI();
   });
-
   cancelBtn.addEventListener("click", () => {
     li.remove();
+    refreshUI();
   });
 });
 
@@ -170,6 +183,9 @@ function startInlineEdit(li) {
   });
 
   cancelBtn.addEventListener("click", () => {
+    addProjectBtn.classList.remove("cancel-add-project");
     refreshUI();
   });
 }
+
+// export renderAddProjectButtonn()

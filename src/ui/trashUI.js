@@ -29,25 +29,32 @@ export function renderTrashUI() {
 
     nonArchivedTodos.forEach(todo => {
         const li = document.createElement("li");
+        li.classList.add("todo-item");
         li.dataset.id = todo.id;
 
         const header = document.createElement("div");
         header.classList.add("thumbnail");
 
-        const title = document.createElement("span");
+        const title = document.createElement("p");
         title.textContent = todo.title;
 
         const expandBtn = document.createElement("button");
-        expandBtn.textContent = "▸";
         expandBtn.classList.add("expand-trash");
+        const expandIcon = document.createElement("i");
+        expandIcon.classList.add("fa-solid", "fa-caret-down", "extend-icon");
+        expandBtn.appendChild(expandIcon);
 
         const restoreBtn = document.createElement("button");
-        restoreBtn.textContent = "Restore";
         restoreBtn.classList.add("restore-todo");
+        const restoreIcon = document.createElement("i");
+        restoreIcon.classList.add("fa-solid", "fa-rotate-left");
+        restoreBtn.appendChild(restoreIcon);
 
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
         deleteBtn.classList.add("delete-todo");
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-calendar-xmark");
+        deleteBtn.appendChild(deleteIcon);
 
         header.append(title, expandBtn, restoreBtn, deleteBtn);
 
@@ -67,20 +74,27 @@ export function renderTrashUI() {
         const header = document.createElement("div");
         header.classList.add("thumbnail");
 
-        const title = document.createElement("span");
+        const title = document.createElement("p");
         title.textContent = project.title;
 
         const expandBtn = document.createElement("button");
-        expandBtn.textContent = "▸";
+
         expandBtn.classList.add("expand-project");
+        const expandIcon = document.createElement("i");
+        expandIcon.classList.add("fa-solid", "fa-caret-down", "extend-icon");
+        expandBtn.appendChild(expandIcon);
 
         const restoreBtn = document.createElement("button");
-        restoreBtn.textContent = "Restore";
         restoreBtn.classList.add("restore-project");
+        const restoreIcon = document.createElement("i");
+        restoreIcon.classList.add("fa-solid", "fa-rotate-left");
+        restoreBtn.appendChild(restoreIcon);
 
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
         deleteBtn.classList.add("delete-project");
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-calendar-xmark");
+        deleteBtn.appendChild(deleteIcon);
 
         header.append(title, expandBtn, restoreBtn, deleteBtn);
 

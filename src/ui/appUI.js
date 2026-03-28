@@ -4,11 +4,13 @@ import { loadFromLocalStorage } from "../storage/storage.js";
 import { getCompletedTodos, getDeletedTodos, getIncompleteTodos, getTodayTodos, getTodosByProject, getUpcomingTodos } from "../logic/todoLogic.js";
 import { renderTodoUI } from "./todoUI.js";
 import "./modalUI.js";
+import "./headerUI.js";
 import { ensureDefaultProjectExists, getProjects } from "../logic/projectLogic.js";
 import { renderProjects } from "./sidebarUI.js";
 import { renderTrashUI } from "./trashUI.js";
 
 let currentView = {
+    title: "Default",
     type: "project",
     projectId: "default"
 };
@@ -17,6 +19,7 @@ export function initUI() {
     loadFromLocalStorage();
     ensureDefaultProjectExists();
     currentView = {
+        title: "Default",
         type: "project",
         projectId: "default"
     };
@@ -29,6 +32,7 @@ export function setView(view) {
 }
 
 function renderApp() {
+    updatePageTitle();
     let todos = [];
     switch (currentView.type) {
         case "inbox":
@@ -50,6 +54,7 @@ function renderApp() {
 
             renderTrashUI();
             updateAddTodoVisibility();
+            renderSidebar();
             return;
         case "project":
             todos = getTodosByProject(currentView.projectId);
@@ -61,7 +66,6 @@ function renderApp() {
     document.querySelector("#trash-view").hidden = true;
     updateAddTodoVisibility();
     renderTodoUI(todos);
-
     renderSidebar();
 }
 
@@ -81,4 +85,9 @@ function updateAddTodoVisibility() {
 function renderSidebar() {
     const projects = getProjects();
     renderProjects(projects, currentView);
+}
+
+function updatePageTitle() {
+    const pageTitle = document.querySelector("#page-title");
+    pageTitle.textContent = currentView.title;
 }

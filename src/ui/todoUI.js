@@ -26,58 +26,86 @@ export function renderTodoUI(todos) {
     const thumbnail = document.createElement("div");
     thumbnail.classList.add("thumbnail");
 
+    const row1 = document.createElement("div");
+    row1.classList.add("row1");
+
+    const mergeBoxName = document.createElement("div");
+    mergeBoxName.classList.add("checkbox-and-title-container");
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = todo.completed;
     checkbox.classList.add("todo-checkbox");
 
-    const title = document.createElement("span");
+    const title = document.createElement("p");
     title.textContent = todo.title;
     title.classList.add("task-name");
 
-    const dueDate = document.createElement("span");
+    mergeBoxName.append(checkbox, title);
+
+    const dueDate = document.createElement("p");
     dueDate.textContent = todo.dueDate
       ? format(todo.dueDate, "EEE, MMM do yyyy")
       : "No Due Date";
     dueDate.classList.add("dueDate");
 
-    const priority = document.createElement("span");
-    priority.textContent = todo.priority;
+    const priority = document.createElement("p");
     priority.classList.add("priority");
+    priority.innerHTML = `Priority: <span id="priority-text">${todo.priority}</span>`;
+    const priorityText = priority.querySelector("#priority-text");
+    if (todo.priority === "Low") {
+      priorityText.classList.add("low");
+    }
+    else if (todo.priority === "Medium") {
+      priorityText.classList.add("medium");
+    }
+    else { //high priority
+      priorityText.classList.add("high");
+    }
+
+    row1.append(mergeBoxName, dueDate);
+
+    const row2 = document.createElement("div");
+    row2.classList.add("row2");
+
+    //buttons
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("button-container")
 
     const expandBtn = document.createElement("button");
-    expandBtn.textContent = "▸";
+    const expandIcon = document.createElement("i");
+    expandIcon.classList.add("fa-solid", "fa-caret-down", "extend-icon");
+    expandBtn.appendChild(expandIcon);
     expandBtn.classList.add("extend");
 
-    thumbnail.append(checkbox, title, dueDate, priority, expandBtn);
+    const editBtn = document.createElement("button");
+    editBtn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+    editBtn.classList.add("edit");
 
-    if (!todo.deleted) {
-      const editBtn = document.createElement("button");
-      editBtn.textContent = "Edit";
-      editBtn.classList.add("edit");
+    const trashBtn = document.createElement("button");
+    trashBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    trashBtn.classList.add("trash");
 
-      const trashBtn = document.createElement("button");
-      trashBtn.textContent = "Trash";
-      trashBtn.classList.add("trash");
-
-      thumbnail.append(editBtn, trashBtn);
-    } else {
-      const restoreBtn = document.createElement("button");
-      restoreBtn.textContent = "Restore";
-      restoreBtn.classList.add("restore");
-
-      thumbnail.append(restoreBtn);
-    }
+    btnContainer.append(expandBtn, editBtn, trashBtn);
+    row2.append(priority, btnContainer);
+    thumbnail.append(row1, row2);
 
     // Extended View
     const extendedTodo = document.createElement("div");
     extendedTodo.classList.add("extendedTodo");
 
-    const description = document.createElement("p");
-    description.textContent = todo.description || "No description";
+    const description = document.createElement("div");
+    description.innerHTML = `<p>Description:</p><p>${todo.description || "No description"}</p>`
+    description.classList.add("description");
 
-    const note = document.createElement("p");
-    note.textContent = todo.note || "No notes";
+    const note = document.createElement("div");
+    note.innerHTML = `<p>Note:</p><p>${todo.note || "No notes"}</p>`;
+    note.classList.add("note");
+
+    const checklistContainerDiv = document.createElement("div");
+    checklistContainerDiv.classList.add("checklist-container-div");
+    const checklistHeading = document.createElement("p");
+    checklistHeading.textContent = "Checklist:";
 
     const checklistContainer = document.createElement("ul");
     todo.checklist.forEach((item, index) => {
@@ -96,8 +124,11 @@ export function renderTodoUI(todos) {
       checklistContainer.appendChild(li);
     });
 
-
-    extendedTodo.append(description, note, checklistContainer);
+    if (!checklistContainer.textContent) {
+      checklistContainer.textContent = "No Checklist";
+    }
+    checklistContainerDiv.append(checklistHeading, checklistContainer);
+    extendedTodo.append(description, checklistContainerDiv, note);
 
     li.append(thumbnail, extendedTodo);
     todoContainer.appendChild(li);
@@ -120,6 +151,9 @@ todoContainer.addEventListener("click", (e) => {
   }
 
   if (e.target.matches(".extend")) {
+    const extendBtn = e.target.closest(".extend");
+    const icon = extendBtn.querySelector(".extend-icon");
+    icon.classList.toggle("rotated");
     li.classList.toggle("expanded");
     return;
   }

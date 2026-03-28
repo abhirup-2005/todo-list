@@ -2,7 +2,7 @@
 import { format } from "date-fns";
 
 export function editTemplate(todo) {
-    return `
+  return `
     <div class="edit-section">
       <label>
         Title
@@ -18,9 +18,9 @@ export function editTemplate(todo) {
       <label>
         Priority
         <select class="edit-priority">
-          <option value="low" ${todo.priority === "low" ? "selected" : ""}>Low</option>
-          <option value="medium" ${todo.priority === "medium" ? "selected" : ""}>Medium</option>
-          <option value="high" ${todo.priority === "high" ? "selected" : ""}>High</option>
+          <option value="Low" ${todo.priority === "Low" ? "selected" : ""}>Low</option>
+          <option value="Medium" ${todo.priority === "Medium" ? "selected" : ""}>Medium</option>
+          <option value="High" ${todo.priority === "High" ? "selected" : ""}>High</option>
         </select>
       </label>
 
@@ -57,25 +57,24 @@ export function editTemplate(todo) {
 
 //Read-Only
 export function expandTemplate(todo) {
-    return `
-    <div class="description">
-        <p>Description</p>
-        <div>${todo.description || "No Description"}</div>
-    </div>
-    <div class="note">
-        <p>Notes</p>
-        <div>${todo.note || "No Note"}</div>
-    </div>
-    <div class="checklistContainer">
-        <p>Checklist</p>
-            <ul>
-            ${todo.checklist.map((item, index) => `
-                <li>
-                    <input type="checkbox" ${item.completed ? "checked" : ""}>
-                    <span>${item.text}</span>
-                </li>
-            `).join("") || "No Checklist"}
-            </ul>
-    </div>
-    `;
+  return `<div class="description">
+<p>Description</p>
+<p>${todo.description || "No Description"}</p>
+</div>
+<div class="note">
+<p>Notes</p>
+<p>${todo.note || "No Note"}</p>
+</div>
+<div class="checklist-container-div">
+<p>Checklist</p>
+<ul>
+${todo.checklist.map((item, index) => `
+<li>
+<input type="checkbox" ${item.completed ? "checked" : ""}>
+<span>${item.text}</span>
+</li>
+`).join("") || "No Checklist"}
+</ul>
+</div>
+`;
 }
