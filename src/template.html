@@ -28,6 +28,7 @@
                 <h2>Projects</h2>
                 <button id="add-project"><i class="fa-solid fa-circle-plus"></i></button>
             </div>
+            <div id="project-add-form"></div>
             <ul id="project-container">
                 Here comes project lists
             </ul>
@@ -40,14 +41,14 @@
             <button type="submit" style="display: none;"></button>
         </form>
         <div class="right-section">
-            <button class="notification"><i class="fa-solid fa-bell"></i></button>
-            <button class="trash"><i class="fa-solid fa-trash"></i></button>
-            <button class="theme-toggle"><i class="fa-solid fa-sun"></i></button>
+            <button class="header-nav-button" data-view="notification"><i class="fa-solid fa-bell"></i></button>
+            <button class="header-nav-button" data-view="trash"><i class="fa-solid fa-trash"></i></button>
+            <button class="header-nav-button" data-view="theme-toggle"><i class="fa-solid fa-sun"></i></button>
         </div>
     </header>
     <section id="main">
         <div class="header">
-            <h2 class="title" id="todo-header">Title</h2>
+            <h2 class="title" id="page-title">Title</h2>
             <button id="add-todo"><i class="fa-solid fa-circle-plus"></i>Todo</button>
         </div>
         <div class="container">
@@ -56,10 +57,11 @@
             </ul>
         </div>
         <section id="trash-view" hidden>
-            <div class="container">
+            <div class="todo-container">
                 <h3>Deleted Todos</h3>
                 <ul id="trash-todos"></ul>
-
+            </div>
+            <div class="project-container">    
                 <h3>Archived Projects</h3>
                 <ul id="trash-projects"></ul>
             </div>
@@ -92,37 +94,38 @@
             <label>
                 Priority
                 <select name="priority">
-                    <option value="low">Low</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="high">High</option>
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
                 </select>
             </label>
 
             <label>
                 Description
-                <input type="text" name="description">
+                <textarea name="description"></textarea>
             </label>
 
             <label>
                 Notes
-                <input type="text" name="note">
+                <textarea name="note"></textarea>
             </label>
 
             <!-- CHECKLIST SECTION -->
             <section class="checklist-section">
                 <p>Checklist</p>
-
+                <div>
                 <ul id="checklist-items"></ul>
 
                 <div class="checklist-input">
                     <input type="text" id="checklist-input" placeholder="Add checklist item">
                     <button type="button" id="add-checklist-item">Add</button>
                 </div>
+                </div>
             </section>
 
             <div class="modal-actions">
                 <button type="submit">Add Todo</button>
-                <button type="button" data-close>Cancel</button>
+                <button type="button" data-close><i class="fa-solid fa-circle-xmark"></i></button>
             </div>
         </form>
     </dialog>
