@@ -6,7 +6,8 @@ import {
   restoreTodo,
   getTodoById,
   editTodo,
-  toggleChecklistItem
+  toggleChecklistItem,
+  isOverdue
 } from "../logic/todoLogic.js";
 import { saveToLocalStorage } from "../storage/storage.js";
 import { refreshUI } from "./appUI.js";
@@ -131,6 +132,11 @@ export function renderTodoUI(todos) {
     extendedTodo.append(description, checklistContainerDiv, note);
 
     li.append(thumbnail, extendedTodo);
+
+    if (isOverdue(todo)) {
+      li.classList.add("overdue");
+    }
+
     todoContainer.appendChild(li);
   });
 }
@@ -211,7 +217,7 @@ todoContainer.addEventListener("click", (e) => {
     item.innerHTML = `
       <input type="checkbox">
       <input type="text">
-      <button class="remove-checklist">×</button>
+      <button class="remove-checklist"><i class="fa-solid fa-circle-xmark"></i></button>
     `;
     ul.appendChild(item);
     return;

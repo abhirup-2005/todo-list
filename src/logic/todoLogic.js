@@ -2,7 +2,7 @@
 
 import { createTodo } from "../models/todo.js";
 import { projectList, todoList } from "../state/state.js";
-import { compareAsc, isAfter, isBefore, isToday, startOfToday } from "date-fns";
+import { compareAsc, isAfter, isBefore, isToday, startOfDay, startOfToday } from "date-fns";
 import { getArchivedProjects } from "./projectLogic.js";
 
 export function addToTodoList({
@@ -186,4 +186,12 @@ export function toggleChecklistItem(todoId, index) {
     item.completed = !item.completed;
 
     updateTodoCompletionFromChecklist(todo);
+}
+
+export function isOverdue(todo) {
+  if (todo.completed || !todo.dueDate) return false;
+
+  const due = startOfDay(new Date(todo.dueDate));
+
+  return isBefore(due, startOfDay(new Date())) && !isToday(due);
 }

@@ -165,7 +165,9 @@ function startInlineEdit(li) {
 
   const cancelBtn = document.createElement("button");
   cancelBtn.type = "button";
-  cancelBtn.textContent = "x";
+  const cancelicon = document.createElement("i");
+  cancelicon.classList.add("fa-solid", "fa-circle-xmark", "cancel-icon")
+  cancelBtn.appendChild(cancelicon);
 
   form.append(input, cancelBtn);
   li.replaceChildren(form);

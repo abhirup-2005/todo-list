@@ -8,6 +8,7 @@ import "./headerUI.js";
 import { ensureDefaultProjectExists, getProjects } from "../logic/projectLogic.js";
 import { renderProjects } from "./sidebarUI.js";
 import { renderTrashUI } from "./trashUI.js";
+import { renderGlobalChart, renderPieChart } from "./analysisUI.js";
 
 let currentView = {
     title: "Default",
@@ -67,6 +68,8 @@ function renderApp() {
     updateAddTodoVisibility();
     renderTodoUI(todos);
     renderSidebar();
+    renderPieChart(todos);
+    renderGlobalChart(); 
 }
 
 export function refreshUI() {
@@ -76,6 +79,10 @@ export function refreshUI() {
 export function getCurrentProjectId() {
     return currentView.type === "project" ? currentView.projectId : null;
 };
+
+export function getCurrentViewType() {
+    return currentView.type;
+}
 
 function updateAddTodoVisibility() {
     const btn = document.querySelector("#add-todo");

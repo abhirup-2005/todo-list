@@ -37,7 +37,7 @@
     <header>
         <form class="search">
             <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
-            <input type="search" id="searchbar">
+            <input type="search" id="searchbar" placeholder="Search for a todo in current view">
             <button type="submit" style="display: none;"></button>
         </form>
         <div class="right-section">
@@ -61,7 +61,7 @@
                 <h3>Deleted Todos</h3>
                 <ul id="trash-todos"></ul>
             </div>
-            <div class="project-container">    
+            <div class="project-container">
                 <h3>Archived Projects</h3>
                 <ul id="trash-projects"></ul>
             </div>
@@ -69,12 +69,19 @@
     </section>
 
     <section id="right-sidebar">
-        <section id="analytics">
-            analytics come here
-        </section>
-        <section id="calander">
-            calender appear here
-        </section>
+        <div class="analytics-section">
+            <h2>Current View Analytics</h2>
+            <div class="chart-box">
+                <canvas id="todoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2>Global Analytics</h2>
+            <div class="chart-box">
+                <canvas id="globalChart"></canvas>
+            </div>
+        </div>
     </section>
 
     <dialog id="add-todo-modal">
@@ -114,12 +121,12 @@
             <section class="checklist-section">
                 <p>Checklist</p>
                 <div>
-                <ul id="checklist-items"></ul>
+                    <ul id="checklist-items"></ul>
 
-                <div class="checklist-input">
-                    <input type="text" id="checklist-input" placeholder="Add checklist item">
-                    <button type="button" id="add-checklist-item">Add</button>
-                </div>
+                    <div class="checklist-input">
+                        <input type="text" id="checklist-input" placeholder="Add checklist item">
+                        <button type="button" id="add-checklist-item">Add</button>
+                    </div>
                 </div>
             </section>
 

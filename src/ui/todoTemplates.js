@@ -41,7 +41,7 @@ export function editTemplate(todo) {
             <li>
               <input type="checkbox" ${item.completed ? "checked" : ""}>
               <input type="text" value="${item.text}">
-              <button class="remove-checklist">×</button>
+              <button class="remove-checklist"><i class="fa-solid fa-circle-xmark"></i></button>
             </li>
           `).join("")}
         </ul>

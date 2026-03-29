@@ -47,7 +47,7 @@ export function renderTrashUI() {
         const restoreBtn = document.createElement("button");
         restoreBtn.classList.add("restore-todo");
         const restoreIcon = document.createElement("i");
-        restoreIcon.classList.add("fa-solid", "fa-rotate-left");
+        restoreIcon.classList.add("fa-solid", "fa-rotate-left", "restore-icon");
         restoreBtn.appendChild(restoreIcon);
 
         const deleteBtn = document.createElement("button");
@@ -87,7 +87,7 @@ export function renderTrashUI() {
         const restoreBtn = document.createElement("button");
         restoreBtn.classList.add("restore-project");
         const restoreIcon = document.createElement("i");
-        restoreIcon.classList.add("fa-solid", "fa-rotate-left");
+        restoreIcon.classList.add("fa-solid", "fa-rotate-left", "restore-icon");
         restoreBtn.appendChild(restoreIcon);
 
         const deleteBtn = document.createElement("button");
@@ -119,6 +119,9 @@ trashTodos.addEventListener("click", e => {
     if (!li) return;
 
     if (e.target.matches(".expand-trash")) {
+        const extendBtn = e.target.closest(".expand-trash");
+        const icon = extendBtn.querySelector(".extend-icon");
+        icon.classList.toggle("rotated");
         li.classList.toggle("expanded");
         return;
     }
@@ -144,6 +147,9 @@ trashProjects.addEventListener("click", e => {
     if (!li) return;
 
     if (e.target.matches(".expand-project")) {
+        const extendBtn = e.target.closest(".expand-project");
+        const icon = extendBtn.querySelector(".extend-icon");
+        icon.classList.toggle("rotated");
         li.classList.toggle("expanded");
         return;
     }
