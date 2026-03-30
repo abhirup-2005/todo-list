@@ -94,3 +94,7 @@ export function ifTitleExist(title) {
 
   return newTitle;
 }
+
+export function getProjectById(projectId) {
+    return projectList.find(p => p.id == projectId);
+}

@@ -10,7 +10,9 @@
 
 <body>
     <section id="left-sidebar">
-        <h1><i class="fa-solid fa-list-check"></i> Todo List</h1>
+        <div class="sidebar-head">
+        <h1><i class="fa-solid fa-list-check"></i> Todo List <button id="sidebar-close"><i class="fa-solid fa-xmark"></i></button></h1>
+        </div>
         <div id="views">
             <ol>
                 <li><button class="view-buttons" data-view="inbox"><i class="fa-solid fa-inbox"></i>Inbox</button></li>
@@ -35,15 +37,19 @@
         </div>
     </section>
     <header>
+        <div class="header-left">
+            <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
         <form class="search">
             <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
             <input type="search" id="searchbar" placeholder="Search for a todo in current view">
             <button type="submit" style="display: none;"></button>
         </form>
+        </div>
         <div class="right-section">
-            <button class="header-nav-button" data-view="notification"><i class="fa-solid fa-bell"></i></button>
+            <button class="header-nav-button" data-view="notification"><i class="fa-solid fa-bell" id="notif-icon"></i></button>
             <button class="header-nav-button" data-view="trash"><i class="fa-solid fa-trash"></i></button>
             <button class="header-nav-button" data-view="theme-toggle"><i class="fa-solid fa-sun"></i></button>
+            <button id="analysis-toggle"><i class="fa-solid fa-chart-pie"></i></button>
         </div>
     </header>
     <section id="main">
@@ -137,6 +143,13 @@
         </form>
     </dialog>
 
+
+    <div id="notif-dropdown" class="hidden">
+        <div class="notif-header">
+            <h2>Notifications</h2>
+        </div>
+        <div id="notif-container"></div>
+    </div>
 </body>
 
 </html>
