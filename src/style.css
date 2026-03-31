@@ -1172,3 +1172,36 @@ label {
     justify-content: space-between;
     padding: 0 20px;
 }
+
+.sort-filter-section label {
+    display: flex;
+    gap: 10px;
+}
+
+select {
+  padding: 1px 5px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+textarea, input {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--text-secondary);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+select[name="priority"], .edit-priority {
+    padding: 6.5px;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 2px solid var(--accent-warning);
+  outline: none;
+}

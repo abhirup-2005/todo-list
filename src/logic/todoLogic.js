@@ -217,12 +217,16 @@ export function applyFilter(todos, value) {
 }
 
 export function applySort(todos, value) {
-  if (value === "sort-createDate") {
+  if (value === "sort-createDate-new") {
+    return [...todos].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+  }
+  if (value === "sort-createDate-old") {
     return [...todos].sort(
       (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
   }
-
   if (value === "sort-dueDate") {
     return [...todos].sort((a, b) => {
       if (!a.dueDate && !b.dueDate) return 0;
@@ -239,5 +243,12 @@ export function applySort(todos, value) {
     );
   }
 
+  if (value === "sort-title-a-z") {
+    return [...todos].sort((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
+  }
+
+  if (value === "sort-title-z-a") {
+    return [...todos].sort((a,b) => b.title.toLowerCase().localeCompare(a.title.toLowerCase()))
+  }
   return todos;
 }
