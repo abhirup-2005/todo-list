@@ -137,6 +137,10 @@ export function renderTodoUI(todos) {
       li.classList.add("overdue");
     }
 
+    if(todo.completed) {
+      li.classList.add("completed");
+    }
+
     todoContainer.appendChild(li);
   });
 }
