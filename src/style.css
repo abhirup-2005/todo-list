@@ -105,7 +105,7 @@ header {
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 40px 1fr;
+    grid-template-rows: 40px min-content 1fr;
     padding: 20px 10px 0 20px;
     gap: 10px;
 }
@@ -360,7 +360,7 @@ header button:hover {
 
 /*Container*/
 #todoList {
-    height: 82vh;
+    height: 78vh;
     padding: 10px;
     display: grid;
     grid-template-columns: 1fr;
