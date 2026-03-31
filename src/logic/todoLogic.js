@@ -125,14 +125,6 @@ export function getIncompleteTodos() {
     return todoList.filter(todo => !todo.completed && !todo.deleted);
 }
 
-export function sortTodosByDueDate() {
-    return getActiveTodos().slice().sort((a, b) => {
-        if (!a.dueDate && !b.dueDate) return 0;
-        if (!a.dueDate) return 1;
-        if (!b.dueDate) return -1;
-        return compareAsc(new Date(a.dueDate), new Date(b.dueDate));
-    });
-}
 
 function classifyTodoByDate(todo) {
     if (!todo.dueDate) return "none";
@@ -194,4 +186,58 @@ export function isOverdue(todo) {
   const due = startOfDay(new Date(todo.dueDate));
 
   return isBefore(due, startOfDay(new Date())) && !isToday(due);
+}
+
+export function applyFilter(todos, value) {
+  if (value === "filter-overdue") {
+    return todos.filter(todo => isOverdue(todo));
+  }
+
+  if (value === "filter-completed") {
+    return todos.filter(todo => todo.completed);
+  }
+
+  if (value === "filter-pending") {
+    return todos.filter(todo => !todo.completed);
+  }
+
+  if (value === "filter-Low") {
+    return todos.filter(todo => todo.priority === "Low");
+  }
+
+  if (value === "filter-Medium") {
+    return todos.filter(todo => todo.priority === "Medium");
+  }
+
+  if (value === "filter-High") {
+    return todos.filter(todo => todo.priority === "High");
+  }
+
+  return todos;
+}
+
+export function applySort(todos, value) {
+  if (value === "sort-createDate") {
+    return [...todos].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+  }
+
+  if (value === "sort-dueDate") {
+    return [...todos].sort((a, b) => {
+      if (!a.dueDate && !b.dueDate) return 0;
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+  }
+
+  if (value === "sort-priority") {
+    const order = { High: 1, Medium: 2, Low: 3 };
+    return [...todos].sort(
+      (a, b) => order[a.priority] - order[b.priority]
+    );
+  }
+
+  return todos;
 }

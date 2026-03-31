@@ -1,7 +1,7 @@
 // appUI.js
 
 import { loadFromLocalStorage } from "../storage/storage.js";
-import { getCompletedTodos, getDeletedTodos, getIncompleteTodos, getTodayTodos, getTodosByProject, getUpcomingTodos } from "../logic/todoLogic.js";
+import { getCompletedTodos, getDeletedTodos, getIncompleteTodos, getTodayTodos, getTodosByProject, getUpcomingTodos, applyFilter, applySort } from "../logic/todoLogic.js";
 import { renderTodoUI } from "./todoUI.js";
 import "./modalUI.js";
 import "./headerUI.js";
@@ -32,6 +32,9 @@ export function setView(view) {
     renderApp();
 }
 
+const sortSelect = document.querySelector('select[name="sort"]');
+const filterSelect = document.querySelector('select[name="filter"]');
+
 function renderApp() {
     updatePageTitle();
     let todos = [];
@@ -52,6 +55,7 @@ function renderApp() {
 
             document.querySelector(".container").hidden = true;
             document.querySelector("#trash-view").hidden = false;
+            document.querySelector(".sort-filter-section").hidden = true;
 
             renderTrashUI();
             updateAddTodoVisibility();
@@ -65,6 +69,14 @@ function renderApp() {
     }
     document.querySelector(".container").hidden = false;
     document.querySelector("#trash-view").hidden = true;
+    document.querySelector(".sort-filter-section").hidden = false;
+
+const filterValue = filterSelect.value;
+const sortValue = sortSelect.value;
+
+todos = applyFilter(todos, filterValue);
+todos = applySort(todos, sortValue);
+
     updateAddTodoVisibility();
     renderTodoUI(todos);
     renderSidebar();
@@ -98,3 +110,11 @@ function updatePageTitle() {
     const pageTitle = document.querySelector("#page-title");
     pageTitle.textContent = currentView.title;
 }
+
+sortSelect.addEventListener("change", () => {
+  refreshUI();
+});
+
+filterSelect.addEventListener("change", () => {
+  refreshUI();
+});

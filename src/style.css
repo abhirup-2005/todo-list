@@ -1164,3 +1164,11 @@ label {
 .todo-item {
     transition: all 0.2s ease;
 }
+
+.sort-filter-section {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 0 20px;
+}

@@ -11,7 +11,8 @@
 <body>
     <section id="left-sidebar">
         <div class="sidebar-head">
-        <h1><i class="fa-solid fa-list-check"></i> Todo List <button id="sidebar-close"><i class="fa-solid fa-xmark"></i></button></h1>
+            <h1><i class="fa-solid fa-list-check"></i> Todo List <button id="sidebar-close"><i
+                        class="fa-solid fa-xmark"></i></button></h1>
         </div>
         <div id="views">
             <ol>
@@ -39,14 +40,15 @@
     <header>
         <div class="header-left">
             <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
-        <form class="search">
-            <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
-            <input type="search" id="searchbar" placeholder="Search Todo in Current View">
-            <button type="submit" style="display: none;"></button>
-        </form>
+            <form class="search">
+                <label for="searchbar"><i class="fa-solid fa-magnifying-glass"></i></label>
+                <input type="search" id="searchbar" placeholder="Search Todo in Current View">
+                <button type="submit" style="display: none;"></button>
+            </form>
         </div>
         <div class="right-section">
-            <button class="header-nav-button" data-view="notification"><i class="fa-solid fa-bell" id="notif-icon"></i></button>
+            <button class="header-nav-button" data-view="notification"><i class="fa-solid fa-bell"
+                    id="notif-icon"></i></button>
             <button class="header-nav-button" data-view="trash"><i class="fa-solid fa-trash"></i></button>
             <button class="header-nav-button" data-view="theme-toggle"><i class="fa-solid fa-sun"></i></button>
             <button id="analysis-toggle"><i class="fa-solid fa-chart-pie"></i></button>
@@ -56,6 +58,26 @@
         <div class="header">
             <h2 class="title" id="page-title">Title</h2>
             <button id="add-todo"><i class="fa-solid fa-circle-plus"></i>Todo</button>
+        </div>
+        <div class="sort-filter-section">
+                <label id="sort">Sort By
+                    <select name="sort">
+                        <option value="sort-createDate" selected>Date Created</option>
+                        <option value="sort-dueDate">Due Date</option>
+                        <option value="sort-priority">Priority</option>
+                    </select>
+                </label>
+                <label id="filter">Filter
+                    <select name="filter">
+                        <option value="filter-all" selected>All</option>
+                        <option value="filter-overdue">Overdue</option>
+                        <option value="filter-completed">Completed</option>
+                        <option value="filter-pending">Pending</option>
+                        <option value="filter-Low">Priority: Low</option>
+                        <option value="filter-Medium">Priority: Medium</option>
+                        <option value="filter-High">Priority: High</option>
+                    </select>
+                </label>
         </div>
         <div class="container">
             <ul id="todoList">
